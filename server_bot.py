@@ -1,17 +1,6 @@
 #!/usr/bin/python3.5
 # -*- coding: utf-8 -*-
 
-"""Simple Bot to reply to Telegram messages.
-This program is dedicated to the public domain under the CC0 license.
-This Bot uses the Updater class to handle the bot.
-First, a few handler functions are defined. Then, those functions are passed to
-the Dispatcher and registered at their respective places.
-Then, the bot is started and runs until we press Ctrl-C on the command line.
-Usage:
-Basic inline bot example. Applies different text transformations.
-Press Ctrl-C on the command line or send a signal to the process to stop the
-bot.
-"""
 from uuid import uuid4
 
 from telegram.utils.helpers import escape_markdown
@@ -38,8 +27,6 @@ IPADDR = range(1)
 COMMAND1 = range(1)
 
 
-# Define a few command handlers. These usually take the two arguments bot and
-# update. Error handlers also receive the raised TelegramError object in error.
 def start(bot, update):
     """Send a message when the command /start is issued."""
     update.message.reply_text(
@@ -156,10 +143,8 @@ def error(bot, update, error):
 
 
 def main():
-    # Create the Updater and pass it your bot's token.
     updater = Updater(TOKEN)
 
-    # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
@@ -189,10 +174,8 @@ def main():
 
     dp.add_handler(conv_handler)
     dp.add_handler(conv_handler2)
-    # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
 
-    # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(InlineQueryHandler(inlinequery))
 
     # log all errors
@@ -200,10 +183,6 @@ def main():
 
     # Start the Bot
     updater.start_polling()
-
-    # Block until the user presses Ctrl-C or the process receives SIGINT,
-    # SIGTERM or SIGABRT. This should be used most of the time, since
-    # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
 
